@@ -34,19 +34,24 @@ function App() {
 
   const handleEmailSend = async () => {
     try {
-      const response = await fetch("http://localhost:5000/send-email", {
-        method: "POST",
+      const response = await fetch('http://localhost:3001/send-email', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(emailData),
       });
-      const data = await response.json();
-      console.log(data);
+  
+      if (response.ok) {
+        alert('Email sent successfully');
+      } else {
+        alert('Error sending email');
+      }
     } catch (error) {
-      console.error("Error sending email:", error);
+      alert('Error sending email');
     }
   };
+
 
   return (
     <div className=" w-screen h-screen bg-lime-300">
