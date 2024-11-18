@@ -1,10 +1,10 @@
-const express = require('express');
-const nodemailer = require('nodemailer');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const requestLogger = require('./middleware');
-require('dotenv').config();
-
+import express from 'express';
+import nodemailer from 'nodemailer';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import requestLogger from './middleware.mjs';
+import dotenv from 'dotenv';
+dotenv.config();
 const app = express();
 
 app.use(cors());
@@ -23,7 +23,7 @@ app.post('/send-email', async (req, res) => {
   });
 
   const mailOptions = {
-    from: 'your-email@gmail.com',
+    from: process.env.EMAIL_USER,
     to: recipientEmail,
     subject: subject,
     text: message,
@@ -36,5 +36,4 @@ app.post('/send-email', async (req, res) => {
     res.status(500).send('Error sending email');
   }
 });
-
-module.exports = app;
+export { app };
